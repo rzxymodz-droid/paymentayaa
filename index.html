@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayaa Chan - Pricelist & Payment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET & BASIC STYLING --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fdfbfb 0%, #f3e6e8 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        /* --- HEADER UTAMA --- */
+        .main-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .main-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #8c5a62; 
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .main-header p {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- CONTAINER UTAMA --- */
+        .container {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* --- SECTION CARD UMUM --- */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(140, 90, 98, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: #8c5a62;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid #f0e0e2;
+            padding-bottom: 10px;
+        }
+
+        /* --- PRICELIST IMAGES --- */
+        .pricelist-img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .pricelist-img:last-child {
+            margin-bottom: 0;
+        }
+
+        /* --- PAYMENT SECTION (DANA & GOPAY) --- */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .method-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #faf8f8;
+            border: 1px solid #efe6e7;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .method-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(140, 90, 98, 0.1);
+            border-color: #8c5a62;
+        }
+
+        .method-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .method-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            color: white;
+            font-size: 12px;
+        }
+
+        .dana-icon { background-color: #118EEA; }
+        .gopay-icon { background-color: #00AA13; }
+
+        .method-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .method-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .method-number {
+            font-size: 15px;
+            color: #555;
+            font-weight: 700;
+        }
+
+        .btn-copy {
+            background: #f0e0e2;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8c5a62;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-copy:hover {
+            background: #8c5a62;
+            color: white;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #a8888d;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e8d5d8;
+        }
+
+        .divider::before { margin-right: 10px; }
+        .divider::after { margin-left: 10px; }
+
+        /* ========================================================= */
+        /* --- BAGIAN QRIS YANG DIBUAT FULL (TANPA DIPOTONG) --- */
+        /* ========================================================= */
+        .qris-full-container {
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+            cursor: pointer;
+            /* Memberikan efek sedikit melengkung di ujung gambar */
+            border-radius: 15px; 
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            /* Transisi untuk efek zoom saat dihover */
+            transition: transform 0.3s ease;
+        }
+
+        .qris-full-container:hover {
+            transform: scale(1.01);
+        }
+
+        .qris-full-container img {
+            width: 100%;
+            height: auto; /* Biarkan tinggi menyesuaikan agar tidak gepeng/terpotong */
+            display: block;
+        }
+
+        .qris-hint {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #8c5a62;
+            font-weight: 600;
+        }
+        /* ========================================================= */
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            font-weight: 600;
+            padding-bottom: 20px;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #8c5a62;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(140, 90, 98, 0.3);
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* --- FITUR FULL SCREEN SAAT GAMBAR DIKLIK --- */
+        .fullscreen-overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95); 
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-overlay img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Memastikan gambar utuh saat full screen */
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-header">
+        <h1>AYAA CHAN</h1>
+        <p>Pricelist & Payment</p>
+    </div>
+
+    <div class="container">
+        
+        <!-- SECTION 1: DAFTAR HARGA -->
+        <div class="card">
+            <h2 class="section-title">Daftar Harga</h2>
+            <!-- GANTI LINK GAMBAR DI BAWAH INI -->
+            <img src="https://placehold.co/400x600/f0e0e2/8c5a62?text=Foto+Pricelist+1" alt="Pricelist 1" class="pricelist-img">
+            <img src="https://placehold.co/400x600/f0e0e2/8c5a62?text=Foto+Pricelist+2" alt="Pricelist 2" class="pricelist-img">
+        </div>
+
+        <!-- SECTION 2: PEMBAYARAN E-WALLET -->
+        <div class="card">
+            <h2 class="section-title">Transfer E-Wallet</h2>
+            
+            <div class="payment-methods">
+                <!-- DANA -->
+                <div class="method-item">
+                    <div class="method-info">
+                        <div class="method-icon dana-icon">DANA</div>
+                        <div class="method-details">
+                            <span class="method-name">DANA</span>
+                            <span class="method-number">085117705515</span>
+                        </div>
+                    </div>
+                    <button class="btn-copy" onclick="copyText('085117705515')">Salin</button>
+                </div>
+
+                <!-- GOPAY -->
+                <div class="method-item">
+                    <div class="method-info">
+                        <div class="method-icon gopay-icon">GOPAY</div>
+                        <div class="method-details">
+                            <span class="method-name">GOPAY</span>
+                            <span class="method-number">085111655515</span>
+                        </div>
+                    </div>
+                    <button class="btn-copy" onclick="copyText('085111655515')">Salin</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: QRIS FULL WIDTH -->
+        <div class="card">
+            <h2 class="section-title">Scan QRIS</h2>
+            
+            <!-- Gambar QRIS Full -->
+            <div class="qris-full-container" onclick="openFullscreen()">
+                <!-- GANTI LINK DI BAWAH INI DENGAN LINK GAMBAR QRIS ASLI ANDA -->
+                <img src="https://placehold.co/400x700/f0e0e2/8c5a62?text=Foto+QRIS+Full" alt="QRIS AllPay Ayaaaw">
+            </div>
+            
+            <div class="qris-hint">👆 Ketuk gambar untuk memperbesar / Scan</div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Instagram: @ayaaaw.cn
+    </div>
+
+    <div class="toast" id="toast">Nomor berhasil disalin!</div>
+
+    <!-- TAMPILAN FULL SCREEN SAAT GAMBAR DIKLIK -->
+    <div class="fullscreen-overlay" id="qrOverlay" onclick="closeFullscreen()">
+        <span class="close-btn">&times;</span>
+        <!-- LINK HARUS SAMA DENGAN GAMBAR QRIS DI ATAS -->
+        <img src="https://placehold.co/400x700/f0e0e2/8c5a62?text=Foto+QRIS+Full" alt="QRIS Full Screen">
+    </div>
+
+    <script>
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                alert('Gagal menyalin teks: ' + err);
+            });
+        }
+
+        function openFullscreen() {
+            document.getElementById('qrOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeFullscreen() {
+            document.getElementById('qrOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        }
+    </script>
+</body>
+</html>
