@@ -30,96 +30,145 @@
             max-width: 450px;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 20px; /* Jarak antar card */
         }
 
         /* =========================================
-           BAGIAN 1: KARTU PEMBAYARAN
+           GAMBAR HEADER BARU (LOGO AYAA CHAN)
+           ========================================= */
+        .header-image-container {
+            width: 100%;
+            text-align: center;
+            animation: fadeInDown 0.6s ease forwards;
+            margin-bottom: 10px;
+        }
+
+        .header-image-container img {
+            width: 100%;
+            max-width: 380px; /* Ukuran maksimal gambar */
+            height: auto;
+            border-radius: 20px; /* Membuat sudut gambar melengkung */
+            box-shadow: 0 10px 25px rgba(197, 160, 180, 0.3); /* Bayangan lembut */
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* =========================================
+           KARTU PEMBAYARAN (QRIS)
            ========================================= */
         .payment-card {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 24px;
-            padding: 35px 25px;
+            padding: 25px 25px 35px 25px;
             box-shadow: 0 15px 35px rgba(197, 160, 180, 0.2);
             text-align: center;
             position: relative;
             overflow: hidden;
-            animation: fadeInDown 0.6s ease forwards;
+            animation: fadeInDown 0.7s ease forwards;
         }
 
-        .payment-card::before {
+        /* Desain area QR */
+        .qr-area {
+            background: #f8f4ff; /* Warna ungu sangat muda */
+            border: 2px solid #fce4ec; /* Border pink muda */
+            border-radius: 20px;
+            padding: 25px 15px;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Aksen setengah lingkaran di atas area QR */
+        .qr-area::before {
             content: '';
             position: absolute;
-            top: -60px;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 180px;
-            height: 180px;
-            background: #f8d8e3;
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0.6;
+            width: 150px;
+            height: 80px;
+            background: #dcd3ff;
+            border-bottom-left-radius: 80px;
+            border-bottom-right-radius: 80px;
+            z-index: 1;
         }
 
         .title {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            color: #b3708c;
+            color: #7b5ea7;
             letter-spacing: 1px;
             margin-bottom: 5px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 2;
         }
 
         .subtitle {
-            font-size: 14px;
+            font-size: 13px;
             color: #888;
             margin-bottom: 20px;
             font-weight: 500;
+            position: relative;
+            z-index: 2;
         }
 
-        /* --- PERUBAHAN PADA KOTAK QRIS --- */
         .qr-container {
             background: #fff;
-            /* Padding tipis agar gambar menempel ke pinggir */
-            padding: 5px;
+            padding: 12px;
             border-radius: 20px;
-            display: block; /* Ubah dari inline-block agar full width */
-            width: 100%;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-            border: 2px solid #fce4ec;
-            margin-bottom: 15px;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #dcd3ff;
+            margin-bottom: 10px;
             transition: transform 0.3s ease;
-            cursor: pointer;
+            position: relative;
+            z-index: 2;
         }
 
         .qr-container:hover {
-            transform: scale(1.02);
+            transform: scale(1.05); /* Efek Zoom saat diarahkan mouse */
         }
 
         .qr-container img {
-            width: 100%; /* Gambar full selebar container */
-            height: auto; /* Tinggi otomatis menyesuaikan agar tidak terpotong */
+            width: 200px;
+            height: 200px;
             display: block;
-            border-radius: 15px;
-            object-fit: contain; 
+            border-radius: 10px;
+            object-fit: cover;
         }
 
         .qr-text {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
-            color: #b3708c;
-            margin-bottom: 25px;
+            color: #333;
+            margin-bottom: 20px;
             letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
         }
 
+        /* Logo AYAA CHAN di dalam area QR (opsional jika ingin tetap ada) */
+        .inner-brand {
+            margin-top: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .inner-brand img {
+            width: 120px;
+            opacity: 0.8;
+        }
+
+        /* Divider */
         .divider {
             display: flex;
             align-items: center;
             text-align: center;
-            margin-bottom: 20px;
+            margin: 25px 0 20px 0;
             color: #b39da7;
             font-size: 12px;
             font-weight: 500;
@@ -134,6 +183,7 @@
         .divider:not(:empty)::before { margin-right: 15px; }
         .divider:not(:empty)::after { margin-left: 15px; }
 
+        /* E-Wallet Buttons */
         .wallet-list {
             display: flex;
             flex-direction: column;
@@ -180,8 +230,9 @@
             color: #555;
         }
 
+
         /* =========================================
-           BAGIAN 2: DAFTAR HARGA (PRICE LIST)
+           KARTU DAFTAR HARGA (PRICE LIST)
            ========================================= */
         .price-card {
             background: rgba(255, 255, 255, 0.85);
@@ -190,7 +241,7 @@
             border-radius: 24px;
             padding: 35px 25px;
             box-shadow: 0 15px 35px rgba(197, 160, 180, 0.2);
-            animation: fadeInUp 0.6s ease forwards;
+            animation: fadeInUp 0.8s ease forwards;
         }
 
         .brand-header {
@@ -279,50 +330,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* =========================================
-           FITUR FULLSCREEN ZOOM GAMBAR QRIS
-           ========================================= */
-        .fullscreen-overlay {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.95); 
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            padding: 15px;
-        }
-
-        .fullscreen-overlay.active {
-            display: flex;
-        }
-
-        .fullscreen-overlay img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Memastikan gambar utuh saat di-zoom */
-            animation: zoomIn 0.3s ease;
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 10000;
-        }
     </style>
 </head>
 <body>
@@ -330,20 +337,44 @@
     <div class="main-container">
         
         <!-- =========================================
+             GAMBAR HEADER (PENGGANTI TEKS LAMA)
+             ========================================= -->
+        <div class="header-image-container">
+            <!-- Pastikan nama file gambar sesuai, contoh: header-logo.jpg -->
+            <img src="header-logo.jpg" alt="AYAA CHAN - Talent Trusted">
+        </div>
+
+        <!-- =========================================
              KARTU PEMBAYARAN 
              ========================================= -->
-        <div class="price-card">
-            <div class="title">PAYMENT & LIST</div>
-            <div class="subtitle">Wajib Send Bukti Transaksi</div>
+        <div class="payment-card">
+            
+            <!-- Area QR Code -->
+            <div class="qr-area">
+                <div class="title">SCAN HERE</div>
+                <div class="subtitle">To Payment</div>
 
-            <!-- Container QRIS sekarang mengarah ke fungsi openFullscreen() -->
-            <div class="qr-container" onclick="openFullscreen()">
-                <img src="https://n.uguu.se/WavXPDHR.jpg" alt="QRIS Allpay">
+                <div class="qr-container">
+                    <!-- Pastikan file gambar QRIS Anda ada -->
+                    <img src="qris.png" alt="QRIS Allpay">
+                </div>
+                <div class="qr-text">QR CODE</div>
+
+                <!-- Teks ketuk untuk zoom -->
+                <p style="font-size: 12px; font-weight: 600; color: #b3708c; margin-bottom: 15px;">Ketuk QRIS untuk Zoom</p>
+                
+                <!-- Opsional: Logo kecil di dalam kartu QR jika ingin tetap ada -->
+                <!-- 
+                <div class="inner-brand">
+                    <img src="header-logo.jpg" alt="Logo">
+                </div> 
+                -->
             </div>
-            <div class="qr-text">Ketuk QRIS untuk Zoom</div>
 
+            <!-- Divider -->
             <div class="divider">Atau Transfer E-Wallet</div>
 
+            <!-- E-Wallet Buttons -->
             <div class="wallet-list">
                 <a href="#" class="wallet-btn dana" target="_blank">
                     <span>DANA</span>
@@ -408,32 +439,11 @@
 
             <!-- Footer -->
             <div class="social-footer">
-                IG : <span>ayaaawz_</span>
+                IG : <span>ayaaw.cn</span>
             </div>
         </div>
 
     </div>
-
-    <!-- =========================================
-         TAMPILAN FULLSCREEN GAMBAR QRIS
-         ========================================= -->
-    <div class="fullscreen-overlay" id="qrOverlay" onclick="closeFullscreen()">
-        <span class="close-btn">&times;</span>
-        <img src="https://n.uguu.se/WavXPDHR.jpg" alt="QRIS Allpay Full">
-    </div>
-
-    <!-- Script untuk Zoom -->
-    <script>
-        function openFullscreen() {
-            document.getElementById('qrOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden'; 
-        }
-
-        function closeFullscreen() {
-            document.getElementById('qrOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto'; 
-        }
-    </script>
 
 </body>
 </html>
